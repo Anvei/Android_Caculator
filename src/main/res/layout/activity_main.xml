@@ -5,6 +5,8 @@
     android:orientation="vertical"
     android:backgroundTint="@color/color1">
 
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,6 +25,19 @@
         android:hint="0.0"
         android:id="@+id/textview"
         android:textSize="40sp"/>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar1"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:visibility="gone"/>
 
     <GridLayout
         android:layout_width="match_parent"
@@ -211,5 +226,11 @@
             android:layout_gravity="center"/>
 
     </GridLayout>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar3"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -11,4 +11,7 @@
     <color name="button_color">#fbfbfb</color>
     <color name="color1">#e9ecf1</color>
     <color name="color2">#f2f3f5</color>
+
+    <color name="coffee">#ae8e89</color>
+    <color name="mycolor2">#84a378</color>
 </resources>

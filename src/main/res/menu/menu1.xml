@@ -8,36 +8,50 @@
         android:id="@+id/item_exit"
         android:title="Exit"/>
 
-    <item android:title="item3">
+    <item android:title="Dialog">
 
         <menu>
 
-            <item android:title="item4"/>
-            <item android:title="item5"/>
+            <item android:title="Start an AlertDialog"
+                android:id="@+id/start_dialog1"/>
+            <item android:title="Start a ProgressDialog"
+                android:id="@+id/start_dialog2"/>
 
         </menu>
 
     </item>
 
-    <group>
+    <item
+        android:title="New activity">
 
-        <item
-            android:title="item6"/>
+        <menu>
+            <item
+                android:title="Start new activity1"
+                android:id="@+id/start_activity1"/>
 
-        <item
-            android:title="item7"/>
+            <item
+                android:title="Start new activity2"
+                android:id="@+id/start_activity2"/>
 
-        <item
-            android:title="item8">
-            <menu>
-                <item
-                    android:title="item9"/>
-                <item
-                    android:title="item10"/>
-                <group>
+            <item
+                android:title="Start new activity3"
+                android:id="@+id/start_activity3"/>
 
-                </group>
-            </menu>
-        </item>
-    </group>
+        </menu>
+    </item>
+
+    <item android:title="Others">
+        <menu>
+            <item android:title="Start a circle ProgressBar"
+                android:id="@+id/start_other1"/>
+
+            <item android:title="Start a linear ProgressBar"
+                android:id="@+id/start_other2"/>
+            <item android:title="Start other circle ProgressBar"
+                android:id="@+id/start_other3"/>
+            <item android:title="Start a Toast"
+                android:id="@+id/start_other4"/>
+        </menu>
+    </item>
+
 </menu>
