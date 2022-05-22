@@ -7,4 +7,37 @@
     <item
         android:id="@+id/item_exit"
         android:title="Exit"/>
+
+    <item android:title="item3">
+
+        <menu>
+
+            <item android:title="item4"/>
+            <item android:title="item5"/>
+
+        </menu>
+
+    </item>
+
+    <group>
+
+        <item
+            android:title="item6"/>
+
+        <item
+            android:title="item7"/>
+
+        <item
+            android:title="item8">
+            <menu>
+                <item
+                    android:title="item9"/>
+                <item
+                    android:title="item10"/>
+                <group>
+
+                </group>
+            </menu>
+        </item>
+    </group>
 </menu>

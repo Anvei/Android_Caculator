@@ -3,6 +3,7 @@ package com.example.caculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,22 +55,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_5 = (Button)findViewById(R.id.button_5);
         button_6 = (Button)findViewById(R.id.button_6);
         button_7 = (Button)findViewById(R.id.button_7);
-    button_8 = (Button)findViewById(R.id.button_8);
-    button_9 = (Button)findViewById(R.id.button_9);
-    button_0 = (Button)findViewById(R.id.button_0);
+        button_8 = (Button)findViewById(R.id.button_8);
+        button_9 = (Button)findViewById(R.id.button_9);
+        button_0 = (Button)findViewById(R.id.button_0);
 
-    button_add = (Button)findViewById(R.id.button_add);
-    button_subtract = (Button)findViewById(R.id.button_subtract);
-    button_divide = (Button)findViewById(R.id.button_divide);
-    button_multi = (Button)findViewById(R.id.button_multi);
-    button_assignment = (Button)findViewById(R.id.button_assignment);
-    button_percent = (Button)findViewById(R.id.button_percent);
+        button_add = (Button)findViewById(R.id.button_add);
+        button_subtract = (Button)findViewById(R.id.button_subtract);
+        button_divide = (Button)findViewById(R.id.button_divide);
+        button_multi = (Button)findViewById(R.id.button_multi);
+        button_assignment = (Button)findViewById(R.id.button_assignment);
+        button_percent = (Button)findViewById(R.id.button_percent);
 
-    button_delete = (Button)findViewById(R.id.button_delete);
-    button_clear = (Button)findViewById(R.id.button_clear);
+        button_delete = (Button)findViewById(R.id.button_delete);
+        button_clear = (Button)findViewById(R.id.button_clear);
 
-    mEditText = (EditText)findViewById(R.id.edittext);
-    mTextView = (TextView)findViewById(R.id.textview);
+        mEditText = (EditText)findViewById(R.id.edittext);
+        mTextView = (TextView)findViewById(R.id.textview);
 
         button_0.setOnClickListener(this);
         button_1.setOnClickListener(this);
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (judge){
             judge = false;
             mEditText.setText(null);}
-        String startStr = mEditText.getText().toString();
+        Editable startStr = mEditText.getText();
         switch(v.getId()){
             case R.id.button_0:
                 mEditText.setText(startStr+"0");
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_assignment:
                 try{
-                    double result = cal(startStr);
+                    double result = evaluateExpression(startStr.toString());
                     mTextView.setText(String.format("%.2f",result));
                 }catch (Exception ex){
                     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
@@ -161,22 +162,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_delete:
                 if (startStr.length() < 1)
                     break;
-                mEditText.setText(startStr.substring(0,startStr.length()-1));
+                mEditText.setText(startStr.toString().substring(0,startStr.length()-1));
                 break;
             default:
                 break;
         }
     }
     //
-    public double cal(String str){
+    //计算一个字符串表达式
+    public static double evaluateExpression(String expression){
+
         //用来存放操作数和操作符
         Stack<Double> operandStack = new Stack<>();
         Stack<Character> operatorStack = new Stack<>();
 
         //插入空格
-        str = insertBlanks(str);
+        expression = insertBlanks(expression);
 
-        String[] tokens = str.split(" ");
+        String[] tokens = expression.split(" ");
 
         for (String token: tokens){
             if (token.length() == 0)
@@ -184,18 +187,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if (token.charAt(0) == '+' || token.charAt(0) == '-'){
                 while(!operatorStack.isEmpty() && (
                         operatorStack.peek() == '+' ||
-                        operandStack.peek() == '-' ||
-                        operandStack.peek() == '×' || operandStack.peek() == '÷'
-                        )){
+                                operandStack.peek() == '-' ||
+                                operandStack.peek() == '×' || operandStack.peek() == '÷' ||
+                                operandStack.peek() == '*' || operandStack.peek() == '/'
+                )){
                     processAnOperator(operandStack,operatorStack);
                 }
 
                 operatorStack.push(token.charAt(0));
             }
-            else if (token.charAt(0) == '×' || token.charAt(0) == '÷'){
+            else if (token.charAt(0) == '×' || token.charAt(0) == '÷' ||
+                    token.charAt(0) == '*' || token.charAt(0) == '/'){
                 while(!operatorStack.isEmpty() &&
-                        (operatorStack.peek() == '×' ||
-                                operatorStack.peek() == '÷')){
+                        (operatorStack.peek() == '×' || operatorStack.peek() == '*' ||
+                                operatorStack.peek() == '÷' || operatorStack.peek() == '/')){
                     processAnOperator(operandStack,operatorStack);
                 }
                 operatorStack.push(token.charAt(0));
@@ -210,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 operatorStack.pop();
             }
             else{
-                operandStack.push(new Double(token));
+                operandStack.push(Double.parseDouble(token));
             }
         }
         while(!operatorStack.isEmpty()){
@@ -220,7 +225,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return operandStack.pop();
     }
 
-    public void processAnOperator(Stack<Double> operandStack, Stack<Character> operatorStack){
+    //从操作数栈和操作符栈中取出相应的数据进行一次运算
+    public static void processAnOperator(Stack<Double> operandStack, Stack<Character> operatorStack){
 
         char op = operatorStack.pop();
         double op1 = operandStack.pop();
@@ -230,22 +236,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             operandStack.push(op1 + op2);
         else if (op == '-')
             operandStack.push(op2 - op1);
-        else if (op == '×')
+        else if (op == '×' || op == '*')
             operandStack.push(op2 * op1);
-        else if (op == '÷')
+        else if (op == '÷' || op == '/')
             operandStack.push(op2 / op1);
 
     }
 
     //给字符串插入空格，以便拆分字符串
-    public String insertBlanks(String s){
+    public static String insertBlanks(String s){
 
         String result ="";
 
         for (int i = 0; i< s.length(); i++){
             if (s.charAt(i) == '(' || s.charAt(i) == ')'
-            || s.charAt(i) == '+' || s.charAt(i) == '-'
-            || s.charAt(i) == '×' || s.charAt(i) == '÷')
+                    || s.charAt(i) == '+' || s.charAt(i) == '-'
+                    || s.charAt(i) == '×' || s.charAt(i) == '÷'
+                    || s.charAt(i) == '*' || s.charAt(i) == '/')
                 result += " " + s.charAt(i) +" ";
             else
                 result += s.charAt(i);
