@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/coffee">
+    android:background="@color/myColor3">
 
     <Button
         android:layout_width="0dp"
@@ -13,7 +13,6 @@
         android:text="Edit"
         android:textAllCaps="false"
         android:textSize="20sp"
-        android:backgroundTint="@color/coffee"
         style="?android:attr/borderlessButtonStyle"/>
         <!--这里的style用于取消按钮阴影-->
     <TextView
@@ -33,7 +32,6 @@
         android:text="Back"
         android:textAllCaps="false"
         android:textSize="20sp"
-        android:backgroundTint="@color/coffee"
         style="?android:attr/borderlessButtonStyle"/>
 
 </LinearLayout>

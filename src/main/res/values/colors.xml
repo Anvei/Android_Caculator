@@ -12,6 +12,7 @@
     <color name="color1">#e9ecf1</color>
     <color name="color2">#f2f3f5</color>
 
-    <color name="coffee">#ae8e89</color>
-    <color name="mycolor2">#84a378</color>
+    <color name="myColor1">#ae8e89</color>
+    <color name="myColor2">#84a378</color>
+    <color name="myColor3">#323131</color>
 </resources>
