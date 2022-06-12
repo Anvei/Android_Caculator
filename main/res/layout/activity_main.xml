@@ -12,7 +12,7 @@
         android:hint="0"
         android:gravity="right"
         android:textSize="60sp"
-        android:id="@+id/edittext"
+        android:id="@+id/expression"
         android:maxLines="3"/>
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_weight="0.5"
         android:gravity="right"
         android:hint="0.0"
-        android:id="@+id/textview"
+        android:id="@+id/result"
         android:textSize="40sp"/>
 
     <GridLayout

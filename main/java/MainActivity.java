@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button button_percent;
     private Button button_dot;
 
-    private TextView mTextView;
-    private TextView mEditText;
+    private TextView text_result;
+    private TextView text_expression;
 
     public MainActivity() {
     }
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_delete = (Button)findViewById(R.id.button_delete);
         button_clear = (Button)findViewById(R.id.button_clear);
 
-        mEditText = (TextView) findViewById(R.id.edittext);
-        mTextView = (TextView)findViewById(R.id.textview);
+        text_expression = (TextView) findViewById(R.id.expression);
+        text_result = (TextView)findViewById(R.id.result);
 
         button_0.setOnClickListener(this);
         button_1.setOnClickListener(this);
@@ -105,77 +105,77 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (judge) {
             judge = false;
-            mEditText.setText(null);
+            text_expression.setText(null);
         }
-        CharSequence startStr = mEditText.getText();
+        CharSequence startStr = text_expression.getText();
         switch (v.getId()) {
             case R.id.button_0:
-                mEditText.setText(startStr + "0");
+                text_expression.setText(startStr + "0");
                 break;
             case R.id.button_1:
-                mEditText.setText(startStr + "1");
+                text_expression.setText(startStr + "1");
                 break;
             case R.id.button_2:
-                mEditText.setText(startStr + "2");
+                text_expression.setText(startStr + "2");
                 break;
             case R.id.button_3:
-                mEditText.setText(startStr + "3");
+                text_expression.setText(startStr + "3");
                 break;
             case R.id.button_4:
-                mEditText.setText(startStr + "4");
+                text_expression.setText(startStr + "4");
                 break;
             case R.id.button_5:
-                mEditText.setText(startStr + "5");
+                text_expression.setText(startStr + "5");
                 break;
             case R.id.button_6:
-                mEditText.setText(startStr + "6");
+                text_expression.setText(startStr + "6");
                 break;
             case R.id.button_7:
-                mEditText.setText(startStr + "7");
+                text_expression.setText(startStr + "7");
                 break;
             case R.id.button_8:
-                mEditText.setText(startStr + "8");
+                text_expression.setText(startStr + "8");
                 break;
             case R.id.button_9:
                 mEditText.setText(startStr + "9");
                 break;
             case R.id.button_pi:
-                mEditText.setText(startStr + "π");
+                text_expression.setText(startStr + "π");
                 break;
             case R.id.button_add:
-                mEditText.setText(startStr + "+");
+                text_expression.setText(startStr + "+");
                 break;
             case R.id.button_subtract:
-                mEditText.setText(startStr + "-");
+                text_expression.setText(startStr + "-");
                 break;
             case R.id.button_divide:
-                mEditText.setText(startStr + "÷");
+                text_expression.setText(startStr + "÷");
                 break;
             case R.id.button_multi:
-                mEditText.setText(startStr + "×");
+                text_expression.setText(startStr + "×");
                 break;
             case R.id.button_percent:
-                mEditText.setText(startStr + "%");
+                text_expression.setText(startStr + "%");
                 break;
             case R.id.button_dot:
-                mEditText.setText(startStr + ".");
+                text_expression.setText(startStr + ".");
                 break;
             case R.id.button_assignment:
                 try {
                     double result = EvaluateExpression.eval(startStr.toString());
-                    mTextView.setText(String.format("%,.5f", result));
+                    text_result.setText(String.format("%,.5f", result));
                 } catch (Exception ex) {
                     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                 }
                 judge = !judge;
                 break;
             case R.id.button_clear:
-                mEditText.setText(null);
+                text_result.setText(null);
                 break;
             case R.id.button_delete:
                 if (startStr.length() < 1)
                     break;
-                mEditText.setText(startStr.toString().substring(0, startStr.length() - 1));
+                text_expression.setText(startStr.toString().substring(0, startStr.length() - 1));
                 break;
             default:
                 break;
